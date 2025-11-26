@@ -26,10 +26,12 @@ app.use(session({
 const trackRoutes = require('./routes/track');
 const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
+const contactRoutes = require('./routes/contact');
 
 app.use('/api/track', trackRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

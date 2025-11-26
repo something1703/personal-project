@@ -34,3 +34,16 @@ INSERT INTO admin_users (username, password) VALUES
 CREATE INDEX idx_tracking_pid ON tracking(pid);
 CREATE INDEX idx_tracking_status ON tracking(status);
 CREATE INDEX idx_tracking_created_at ON tracking(created_at);
+
+-- Create contact submissions table (optional)
+CREATE TABLE IF NOT EXISTS contact_submissions (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create index for contact submissions
+CREATE INDEX idx_contact_created_at ON contact_submissions(created_at);
