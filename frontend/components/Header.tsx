@@ -1,10 +1,51 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
+  const checkAuthStatus = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/status', {
+        credentials: 'include',
+      });
+      const data = await response.json();
+
+      if (data.authenticated) {
+        setIsAuthenticated(true);
+        setUsername(data.user.username);
+      }
+    } catch (error) {
+      console.error('Auth check failed:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        setIsAuthenticated(false);
+        setUsername('');
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -29,20 +70,49 @@ export default function Header() {
             <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
               Contact
             </Link>
-            <Link
-              href="/login"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-            >
-              Login
-            </Link>
+            
+            {isAuthenticated ? (
+              <>
+                <Link
+                  href="/admin/dashboard"
+                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition font-medium"
+                >
+                  Admin Dashboard
+                </Link>
+                <div className="flex items-center gap-3">
+                  <span className="text-gray-700 font-medium">Hi, {username}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition font-medium"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50 transition font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition font-medium"
+                >
+                  Join Our Panel
+                </Link>
+              </>
+            )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -67,9 +137,32 @@ export default function Header() {
             <Link href="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
               Contact
             </Link>
-            <Link href="/login" className="block px-4 py-2 bg-blue-600 text-white rounded text-center">
-              Login
-            </Link>
+            
+            {isAuthenticated ? (
+              <>
+                <Link href="/admin/dashboard" className="block px-4 py-2 bg-green-600 text-white rounded text-center">
+                  Admin Dashboard
+                </Link>
+                <div className="px-4 py-2 text-gray-700 font-medium">
+                  Hi, {username}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full px-4 py-2 bg-red-600 text-white rounded text-center"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="block px-4 py-2 text-blue-600 border border-blue-600 rounded text-center">
+                  Login
+                </Link>
+                <Link href="/register" className="block px-4 py-2 bg-blue-600 text-white rounded text-center">
+                  Join Our Panel
+                </Link>
+              </>
+            )}
           </div>
         )}
       </nav>

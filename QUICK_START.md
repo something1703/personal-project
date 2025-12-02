@@ -1,7 +1,5 @@
 # Quick Start Guide
-
 ## 🚀 Getting Started
-
 ### Step 1: Database Setup
 
 1. **Create the database:**

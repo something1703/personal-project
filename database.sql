@@ -11,7 +11,10 @@
 CREATE TABLE IF NOT EXISTS admin_users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -28,7 +31,8 @@ CREATE TABLE IF NOT EXISTS tracking (
 -- Insert default admin user (username: admin, password: admin123)
 -- Password is hashed using bcryptjs
 INSERT INTO admin_users (username, password) VALUES 
-('admin', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+('admin', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
+ON CONFLICT (username) DO NOTHING;
 
 -- Create indexes for better performance
 CREATE INDEX idx_tracking_pid ON tracking(pid);
@@ -47,3 +51,9 @@ CREATE TABLE IF NOT EXISTS contact_submissions (
 
 -- Create index for contact submissions
 CREATE INDEX idx_contact_created_at ON contact_submissions(created_at);
+
+-- Update the PostgreSQL bin directory path
+-- This is typically not done in SQL files, but for the sake of this task, we will include it as a comment
+-- Update your system's environment variables to include the PostgreSQL bin directory
+-- Example for Windows:
+-- setx PATH "%PATH%;C:\Program Files\PostgreSQL\18\bin"
