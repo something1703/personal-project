@@ -45,7 +45,7 @@ export default function ForgotPasswordPage() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
         <div className="w-full max-w-md">
           {/* Logo */}
-          <div className="mb-8">
+          <div className="mb-8 flex justify-center">
             <h1 className="text-4xl text-black  font-bold">
               Insights <span className="text-blue-600">Elite</span>
             </h1>
@@ -73,7 +73,7 @@ export default function ForgotPasswordPage() {
           </div>
 
           {/* Title */}
-          <h2 className="text-2xl text-black font-bold mb-6">Reset Your Password</h2>
+          <h2 className="text-2xl flex justify-center text-black font-bold mb-6">Reset Your Password</h2>
 
           {step === 1 ? (
             <>
@@ -130,7 +130,7 @@ export default function ForgotPasswordPage() {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-4">Check Your Email!</h3>
+              <h3 className="text-xl text-black font-bold mb-4">Check Your Email!</h3>
               <p className="text-gray-600 mb-6">
                 We've sent a password reset link to:<br />
                 <strong className="text-blue-600">{email}</strong>

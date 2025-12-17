@@ -124,14 +124,14 @@ export default function ResetPasswordPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-4xl text-black font-bold">
               Insights <span className="text-blue-600">Elite</span>
             </h1>
           </div>
 
           {step === 2 ? (
             <>
-              <h2 className="text-2xl font-bold mb-6">Set New Password</h2>
+              <h2 className="text-2xl text-black font-bold mb-6">Set New Password</h2>
               <p className="text-gray-600 mb-6">
                 Creating a new password for: <strong className="text-blue-600">{email}</strong>
               </p>
@@ -151,7 +151,7 @@ export default function ResetPasswordPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter new password"
                     required
                     minLength={8}
@@ -169,7 +169,7 @@ export default function ResetPasswordPage() {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 text-black py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Confirm new password"
                     required
                   />
@@ -193,7 +193,7 @@ export default function ResetPasswordPage() {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-xl font-bold mb-4">Password Reset Successful!</h3>
+              <h3 className="text-xl text-black font-bold mb-4">Password Reset Successful!</h3>
               <p className="text-gray-600 mb-6">
                 Your password has been successfully reset. You can now login with your new password.
               </p>
