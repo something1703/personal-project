@@ -1,11 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
+const nodemailer = require('nodemailer');
+
+// Configure email transporter
+// For Gmail: You need to enable "Less secure app access" or use App Password
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // You can use 'gmail', 'yahoo', 'outlook', etc.
+    auth: {
+        user: process.env.EMAIL_USER || 'your-email@gmail.com', // Add your email
+        pass: process.env.EMAIL_PASSWORD || 'your-app-password' // Add your app password
+    }
+});
 
 // Submit contact form
 router.post('/submit', async (req, res) => {
     try {
-        const { name, email, subject, message } = req.body;
+        const { name, email, subject, message, phone } = req.body;
 
         // Validate inputs
         if (!name || !email || !subject || !message) {
@@ -32,6 +43,50 @@ router.post('/submit', async (req, res) => {
         `;
 
         await db.query(query, [name, email, subject, message]);
+
+        // Send email notification
+        const mailOptions = {
+            from: process.env.EMAIL_USER || 'your-email@gmail.com',
+            to: 'contact@insightselite.com', // Your company email to receive notifications
+            subject: `New Contact Form Submission: ${subject}`,
+            html: `
+                <h2>New Contact Form Submission</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+                <p><strong>Subject:</strong> ${subject}</p>
+                <p><strong>Message:</strong></p>
+                <p>${message}</p>
+                <hr>
+                <p><small>Sent from Insights Elite Contact Form</small></p>
+            `
+        };
+
+        // Send auto-reply to user
+        const autoReplyOptions = {
+            from: process.env.EMAIL_USER || 'your-email@gmail.com',
+            to: email,
+            subject: 'Thank you for contacting Insights Elite',
+            html: `
+                <h2>Thank you for contacting us!</h2>
+                <p>Dear ${name},</p>
+                <p>We have received your message and will get back to you shortly.</p>
+                <p><strong>Your message:</strong></p>
+                <p>${message}</p>
+                <hr>
+                <p>Best regards,<br>Insights Elite Team</p>
+            `
+        };
+
+        // Send both emails
+        try {
+            await transporter.sendMail(mailOptions);
+            await transporter.sendMail(autoReplyOptions);
+            console.log('Emails sent successfully');
+        } catch (emailError) {
+            console.error('Error sending email:', emailError);
+            // Continue even if email fails - form is still saved to database
+        }
 
         res.json({
             status: 'success',
