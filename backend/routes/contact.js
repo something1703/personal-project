@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
 const nodemailer = require('nodemailer');
+const { validateContact, checkValidation } = require('../middleware/auth');
 
 // Configure email transporter
 // For Gmail: You need to enable "Less secure app access" or use App Password
@@ -14,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Submit contact form
-router.post('/submit', async (req, res) => {
+router.post('/submit', validateContact, checkValidation, async (req, res) => {
     try {
         const { name, email, subject, message, phone } = req.body;
 

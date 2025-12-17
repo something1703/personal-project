@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
+import { API_ENDPOINTS } from '@/lib/config';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ export default function Contact() {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:5000/api/contact/submit', {
+      const response = await fetch(API_ENDPOINTS.CONTACT.SUBMIT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

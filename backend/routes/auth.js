@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const db = require('../config/database');
+const { validateRegistration, validateLogin, checkValidation } = require('../middleware/auth');
+const { auditMiddleware } = require('../middleware/audit');
+const { logAudit, logInfo, logWarning } = require('../config/logger');
 
 // Register endpoint
-router.post('/register', async (req, res) => {
+router.post('/register', validateRegistration, checkValidation, auditMiddleware('USER_REGISTER', 'user'), async (req, res) => {
     try {
         const { username, email, password, firstName, lastName } = req.body;
 
@@ -31,11 +34,11 @@ router.post('/register', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Insert user into database
+        // Insert user into database (default role: 'user')
         const insertQuery = `
-            INSERT INTO admin_users (username, email, password, first_name, last_name, created_at)
-            VALUES ($1, $2, $3, $4, $5, NOW())
-            RETURNING id, username, email
+            INSERT INTO admin_users (username, email, password, first_name, last_name, role, created_at)
+            VALUES ($1, $2, $3, $4, $5, 'user', NOW())
+            RETURNING id, username, email, role
         `;
         const result = await db.query(insertQuery, [
             username,
@@ -51,6 +54,7 @@ router.post('/register', async (req, res) => {
         req.session.adminLoggedIn = true;
         req.session.adminId = newUser.id;
         req.session.adminUsername = newUser.username;
+        req.session.adminRole = newUser.role;
 
         res.status(201).json({
             status: 'success',
@@ -72,7 +76,7 @@ router.post('/register', async (req, res) => {
 });
 
 // Login endpoint
-router.post('/login', async (req, res) => {
+router.post('/login', validateLogin, checkValidation, auditMiddleware('USER_LOGIN', 'user'), async (req, res) => {
     try {
         const { username, password } = req.body;
 
@@ -84,7 +88,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Get user from database (allow login with username or email)
-        const query = 'SELECT id, username, password, email FROM admin_users WHERE username = $1 OR email = $1';
+        const query = 'SELECT id, username, password, email, role, is_active FROM admin_users WHERE username = $1 OR email = $1';
         const result = await db.query(query, [username]);
 
         if (result.rows.length === 0) {
@@ -95,6 +99,14 @@ router.post('/login', async (req, res) => {
         }
 
         const user = result.rows[0];
+
+        // Check if account is active
+        if (!user.is_active) {
+            return res.status(403).json({
+                status: 'error',
+                message: 'Your account has been deactivated. Please contact support.'
+            });
+        }
 
         // Verify password
         const isValidPassword = await bcrypt.compare(password, user.password);
@@ -110,6 +122,7 @@ router.post('/login', async (req, res) => {
         req.session.adminLoggedIn = true;
         req.session.adminId = user.id;
         req.session.adminUsername = user.username;
+        req.session.adminRole = user.role;
 
         res.json({
             status: 'success',
@@ -117,7 +130,8 @@ router.post('/login', async (req, res) => {
             user: {
                 id: user.id,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                role: user.role
             }
         });
 
@@ -131,14 +145,20 @@ router.post('/login', async (req, res) => {
 });
 
 // Logout endpoint
-router.post('/logout', (req, res) => {
+router.post('/logout', auditMiddleware('USER_LOGOUT', 'user'), (req, res) => {
+    const userId = req.session.adminId;
+    const username = req.session.adminUsername;
+    
     req.session.destroy((err) => {
         if (err) {
+            logWarning('Logout failed', { userId, error: err.message });
             return res.status(500).json({
                 status: 'error',
                 message: 'Failed to logout'
             });
         }
+        
+        logInfo('User logged out', { userId, username });
         res.json({
             status: 'success',
             message: 'Logout successful'
@@ -154,7 +174,8 @@ router.get('/status', (req, res) => {
             authenticated: true,
             user: {
                 id: req.session.adminId,
-                username: req.session.adminUsername
+                username: req.session.adminUsername,
+                role: req.session.adminRole
             }
         });
     } else {

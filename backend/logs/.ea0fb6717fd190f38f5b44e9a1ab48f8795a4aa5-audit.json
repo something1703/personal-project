@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 90
+    },
+    "auditLog": "C:\\Users\\DELL\\OneDrive\\Desktop\\php dashboard\\backend\\logs\\.ea0fb6717fd190f38f5b44e9a1ab48f8795a4aa5-audit.json",
+    "files": [
+        {
+            "date": 1765984439935,
+            "name": "C:\\Users\\DELL\\OneDrive\\Desktop\\php dashboard\\backend\\logs\\audit-2025-12-17.log",
+            "hash": "1abdd4c799e5fc71d1f7cf3c574ff22810176a30dda0a63ebc8c2c5370462287"
+        }
+    ],
+    "hashType": "sha256"
+}

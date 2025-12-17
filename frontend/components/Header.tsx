@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { API_ENDPOINTS } from '@/lib/config';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function Header() {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/status', {
+      const response = await fetch(API_ENDPOINTS.AUTH.STATUS, {
         credentials: 'include',
       });
       const data = await response.json();
@@ -32,7 +33,7 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/logout', {
+      const response = await fetch(API_ENDPOINTS.AUTH.LOGOUT, {
         method: 'POST',
         credentials: 'include',
       });

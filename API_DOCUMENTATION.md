@@ -369,14 +369,89 @@ npm run dev
 5. Implement rate limiting for API endpoints
 6. Add CORS whitelist for production domains
 
+## Performance Optimization Endpoints
+
+### Get Performance Metrics
+Get system performance metrics including database stats and cache statistics.
+
+**Endpoint**: `GET /api/admin/performance`
+
+**Authentication**: Admin role required
+
+**Response**:
+```json
+{
+  "status": "success",
+  "data": {
+    "database": {
+      "tracking": {
+        "size": "1024 kB",
+        "live_rows": 1500,
+        "dead_rows": 10
+      },
+      "activeConnections": 3
+    },
+    "cache": {
+      "statsCache": { "keys": 2, "hits": 150, "misses": 10 },
+      "dashboardCache": { "keys": 5, "hits": 500, "misses": 25 }
+    }
+  }
+}
+```
+
+### Get Index Suggestions
+Get recommendations for database indexes to improve query performance.
+
+**Endpoint**: `GET /api/admin/performance/indexes/:table`
+
+**Authentication**: Admin role required
+
+**Response**:
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "column": "status",
+      "distinctValues": 3,
+      "correlation": 0.3,
+      "suggestion": "CREATE INDEX idx_tracking_status ON tracking(status);"
+    }
+  ]
+}
+```
+
+### Clear Cache
+Clear application caches to free memory or force data refresh.
+
+**Endpoint**: `POST /api/admin/performance/cache/clear`
+
+**Authentication**: Admin role required
+
+**Request Body**:
+```json
+{
+  "cacheType": "all"  // Options: "all", "statsCache", "dashboardCache", "userCache", "generalCache"
+}
+```
+
+**Response**:
+```json
+{
+  "status": "success",
+  "message": "Cache cleared successfully"
+}
+```
+
 ## Future Enhancements
 
-- [ ] Email notifications for contact form
+- [x] Email notifications for contact form
+- [x] Multi-admin user support with roles
+- [x] API rate limiting
+- [x] Performance optimization (caching, compression)
 - [ ] Export data in multiple formats (Excel, PDF)
 - [ ] Real-time dashboard updates with WebSocket
-- [ ] Multi-admin user support
 - [ ] Advanced analytics and charts
-- [ ] API rate limiting
 - [ ] Webhook integration for automated tracking
 
 ## Support

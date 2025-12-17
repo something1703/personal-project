@@ -1,21 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
-
-// Auth middleware
-function requireAuth(req, res, next) {
-    if (!req.session.adminLoggedIn) {
-        return res.status(401).json({
-            status: 'error',
-            message: 'Unauthorized. Please login first.'
-        });
-    }
-    next();
-}
+const { requireAuth, requireRole } = require('../middleware/auth');
+const { cacheMiddleware, statsCache, dashboardCache } = require('../config/cache');
 
 // Get all tracking records with filters and pagination
-// Temporarily removed requireAuth for testing
-router.get('/records', async (req, res) => {
+// Only admin and viewer roles can access
+router.get('/records', requireRole('admin', 'viewer'), cacheMiddleware(120, dashboardCache), async (req, res) => {
     try {
         const { pid, status, search, page = 1, limit = 20 } = req.query;
         
@@ -84,8 +75,7 @@ router.get('/records', async (req, res) => {
 });
 
 // Get statistics
-// Temporarily removed requireAuth for testing
-router.get('/stats', async (req, res) => {
+router.get('/stats', requireRole('admin', 'viewer'), cacheMiddleware(300, statsCache), async (req, res) => {
     try {
         const query = `
             SELECT 

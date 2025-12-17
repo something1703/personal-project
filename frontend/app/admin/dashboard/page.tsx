@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { API_ENDPOINTS } from '@/lib/config';
 
 interface TrackingRecord {
   id: number;
@@ -38,7 +39,7 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/dashboard/stats');
+      const response = await fetch(API_ENDPOINTS.DASHBOARD.STATS);
       const data = await response.json();
       
       if (data.status === 'success') {
@@ -65,7 +66,7 @@ export default function AdminDashboard() {
         ...(searchQuery && { search: searchQuery })
       });
 
-      const response = await fetch(`http://localhost:5000/api/dashboard/records?${params}`);
+      const response = await fetch(`${API_ENDPOINTS.DASHBOARD.RECORDS}?${params}`);
       const data = await response.json();
       
       if (data.status === 'success') {
