@@ -48,7 +48,7 @@ router.post('/submit', validateContact, checkValidation, async (req, res) => {
         // Send email notification
         const mailOptions = {
             from: process.env.EMAIL_USER || 'your-email@gmail.com',
-            to: 'contact@insightselite.com', // Your company email to receive notifications
+            to: process.env.EMAIL_USER || 'ujjwaltyagi9605@gmail.com', // Your company email to receive notifications
             subject: `New Contact Form Submission: ${subject}`,
             html: `
                 <h2>New Contact Form Submission</h2>

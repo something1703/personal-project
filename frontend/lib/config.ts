@@ -16,5 +16,10 @@ export const API_ENDPOINTS = {
   CONTACT: {
     SUBMIT: `${API_URL}/api/contact/submit`,
   },
+  PASSWORD: {
+    REQUEST_RESET: `${API_URL}/api/password/request-reset`,
+    VERIFY_TOKEN: `${API_URL}/api/password/verify-token`,
+    RESET: `${API_URL}/api/password/reset-password`,
+  },
   TRACK: `${API_URL}/api/track`,
 };
