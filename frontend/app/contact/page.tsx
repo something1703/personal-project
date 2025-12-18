@@ -19,6 +19,24 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Basic frontend validation
+    if (!formData.name.trim()) {
+      alert('Please enter your name');
+      return;
+    }
+    if (!formData.email.trim()) {
+      alert('Please enter your email');
+      return;
+    }
+    if (!formData.subject) {
+      alert('Please select a subject');
+      return;
+    }
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      alert('Please enter a message with at least 10 characters');
+      return;
+    }
+    
     try {
       const response = await fetch(API_ENDPOINTS.CONTACT.SUBMIT, {
         method: 'POST',
@@ -30,16 +48,19 @@ export default function Contact() {
 
       const data = await response.json();
 
-      if (data.status === 'success') {
+      if (response.ok && data.status === 'success') {
         setSubmitted(true);
         setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        alert('Failed to send message. Please try again.');
+        // Show specific error message from backend
+        const errorMessage = data.message || data.errors?.[0]?.msg || 'Failed to send message. Please try again.';
+        alert(errorMessage);
+        console.error('Contact form error:', data);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Failed to send message. Please try again.');
+      alert('Network error. Please check your connection and try again.');
     }
   };
 

@@ -9,6 +9,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
+  const [userRole, setUserRole] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function Header() {
       if (data.authenticated) {
         setIsAuthenticated(true);
         setUsername(data.user.username);
+        setUserRole(data.user.role);
       }
     } catch (error) {
       console.error('Auth check failed:', error);
@@ -41,6 +43,7 @@ export default function Header() {
       if (response.ok) {
         setIsAuthenticated(false);
         setUsername('');
+        setUserRole('');
         router.push('/');
       }
     } catch (error) {
@@ -74,12 +77,14 @@ export default function Header() {
             
             {isAuthenticated ? (
               <>
-                <Link
-                  href="/admin/dashboard"
-                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition font-medium"
-                >
-                  Admin Dashboard
-                </Link>
+                {userRole === 'admin' && (
+                  <Link
+                    href="/admin/dashboard"
+                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition font-medium"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
                 <div className="flex items-center gap-3">
                   <span className="text-gray-700 font-medium">Hi, {username}</span>
                   <button
@@ -141,9 +146,11 @@ export default function Header() {
             
             {isAuthenticated ? (
               <>
-                <Link href="/admin/dashboard" className="block px-4 py-2 bg-green-600 text-white rounded text-center">
-                  Admin Dashboard
-                </Link>
+                {userRole === 'admin' && (
+                  <Link href="/admin/dashboard" className="block px-4 py-2 bg-green-600 text-white rounded text-center">
+                    Admin Dashboard
+                  </Link>
+                )}
                 <div className="px-4 py-2 text-gray-700 font-medium">
                   Hi, {username}
                 </div>

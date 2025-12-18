@@ -62,6 +62,7 @@ const validateContact = [
     body('email').trim().isEmail().normalizeEmail().withMessage('Please provide a valid email address'),
     body('subject').trim().isLength({ min: 3, max: 255 }).withMessage('Subject must be between 3 and 255 characters'),
     body('message').trim().isLength({ min: 10, max: 2000 }).withMessage('Message must be between 10 and 2000 characters'),
+    body('phone').optional().trim().isLength({ min: 10, max: 15 }).withMessage('Phone number must be between 10 and 15 characters').matches(/^[0-9+\-\s()]+$/).withMessage('Please provide a valid phone number'),
 ];
 
 // Check validation results

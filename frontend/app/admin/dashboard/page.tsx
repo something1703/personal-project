@@ -39,7 +39,9 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch(API_ENDPOINTS.DASHBOARD.STATS);
+      const response = await fetch(API_ENDPOINTS.DASHBOARD.STATS, {
+        credentials: 'include',
+      });
       const data = await response.json();
       
       if (data.status === 'success') {
@@ -66,7 +68,9 @@ export default function AdminDashboard() {
         ...(searchQuery && { search: searchQuery })
       });
 
-      const response = await fetch(`${API_ENDPOINTS.DASHBOARD.RECORDS}?${params}`);
+      const response = await fetch(`${API_ENDPOINTS.DASHBOARD.RECORDS}?${params}`, {
+        credentials: 'include',
+      });
       const data = await response.json();
       
       if (data.status === 'success') {

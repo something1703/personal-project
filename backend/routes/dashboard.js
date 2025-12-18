@@ -5,8 +5,8 @@ const { requireAuth, requireRole } = require('../middleware/auth');
 const { cacheMiddleware, statsCache, dashboardCache } = require('../config/cache');
 
 // Get all tracking records with filters and pagination
-// Only admin and viewer roles can access
-router.get('/records', requireRole('admin', 'viewer'), cacheMiddleware(120, dashboardCache), async (req, res) => {
+// Only admin role can access
+router.get('/records', requireRole('admin'), cacheMiddleware(120, dashboardCache), async (req, res) => {
     try {
         const { pid, status, search, page = 1, limit = 20 } = req.query;
         
@@ -75,7 +75,7 @@ router.get('/records', requireRole('admin', 'viewer'), cacheMiddleware(120, dash
 });
 
 // Get statistics
-router.get('/stats', requireRole('admin', 'viewer'), cacheMiddleware(300, statsCache), async (req, res) => {
+router.get('/stats', requireRole('admin'), cacheMiddleware(300, statsCache), async (req, res) => {
     try {
         const query = `
             SELECT 

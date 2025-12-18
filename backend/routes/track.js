@@ -11,10 +11,10 @@ function getUserIP(req) {
            req.ip;
 }
 
-// Track endpoint - handles ?pid=XXX&uid=XXX&action=Complete/Terminate/Quotafull
+// Track endpoint - handles ?pid=XXX&uid=XXX&action=Complete/Terminate/Quotafull&redirect_url=XXX
 router.get('/', async (req, res) => {
     try {
-        const { uid, pid, action } = req.query;
+        const { uid, pid, action, redirect_url } = req.query;
 
         // Validate action
         const validActions = ['Complete', 'Terminate', 'Quotafull'];
@@ -39,6 +39,14 @@ router.get('/', async (req, res) => {
         // Insert into database
         const query = 'INSERT INTO tracking (uid, pid, status, ip) VALUES ($1, $2, $3, $4) RETURNING *';
         const result = await db.query(query, [uid, pid, action, ip]);
+
+        // If redirect_url is provided, redirect to company's URL
+        if (redirect_url) {
+            // Optionally append status parameters back to company
+            const separator = redirect_url.includes('?') ? '&' : '?';
+            const redirectWithParams = `${redirect_url}${separator}uid=${uid}&status=${action}&timestamp=${Date.now()}`;
+            return res.redirect(redirectWithParams);
+        }
 
         // Return HTML response showing status
         const statusColors = {

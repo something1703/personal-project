@@ -6,6 +6,7 @@ import { API_ENDPOINTS } from '@/lib/config';
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
@@ -17,9 +18,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         });
         const data = await response.json();
 
-        if (data.authenticated) {
+        if (data.authenticated && data.user.role === 'admin') {
           setIsAuthenticated(true);
+          setIsAdmin(true);
+        } else if (data.authenticated && data.user.role !== 'admin') {
+          // User is logged in but not an admin
+          router.push('/');
         } else {
+          // User is not logged in
           router.push('/login');
         }
       } catch (error) {
@@ -44,7 +50,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     );
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !isAdmin) {
     return null;
   }
 
