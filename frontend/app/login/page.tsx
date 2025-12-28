@@ -35,15 +35,16 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      console.log('Calling API:', API_ENDPOINTS.AUTH.LOGIN);
       const response = await fetch(API_ENDPOINTS.AUTH.LOGIN, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify({ 
-          username: formData.username || formData.email, 
-          password: formData.password 
+        body: JSON.stringify({
+          username: formData.username || formData.email,
+          password: formData.password
         }),
       });
 
@@ -58,7 +59,7 @@ export default function LoginPage() {
         setError(data.message || 'Login failed');
       }
     } catch (err) {
-      setError('Network error. Please check if backend server is running on port 5000.');
+      setError('Network error. Please check if Apache server is running and PHP backend is accessible.');
       console.error('Login error:', err);
     } finally {
       setLoading(false);
@@ -91,27 +92,24 @@ export default function LoginPage() {
           {/* Progress Steps */}
           <div className="flex items-center justify-between mb-8 bg-gray-100 rounded-lg p-4">
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+                }`}>
                 {step > 1 ? '✓' : '1'}
               </div>
               <span className="ml-2 text-xs font-medium text-gray-700">You</span>
             </div>
             <div className={`flex-1 h-0.5 mx-2 ${step >= 2 ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+                }`}>
                 {step > 2 ? '✓' : '2'}
               </div>
               <span className="ml-2 text-xs font-medium text-gray-700">Account</span>
             </div>
             <div className={`flex-1 h-0.5 mx-2 ${step >= 3 ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+                }`}>
                 3
               </div>
               <span className="ml-2 text-xs font-medium text-gray-700">Confirm</span>
@@ -277,7 +275,7 @@ export default function LoginPage() {
             No matter where you are,<br />
             you can take part in surveys
           </p>
-          
+
           {/* Bottom Navigation */}
           <div className="absolute bottom-12 left-0 right-0 flex justify-center gap-12 text-sm">
             <Link href="/about" className="hover:text-blue-400 transition">About</Link>

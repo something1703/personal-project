@@ -1,5 +1,5 @@
 // API Configuration
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost/survey_tracking/php';
 
 // API endpoints
 export const API_ENDPOINTS = {
@@ -14,12 +14,12 @@ export const API_ENDPOINTS = {
     STATS: `${API_URL}/api/dashboard/stats`,
   },
   CONTACT: {
-    SUBMIT: `${API_URL}/api/contact/submit`,
+    SUBMIT: `${API_URL}/api/contact`,
   },
   PASSWORD: {
-    REQUEST_RESET: `${API_URL}/api/password/request-reset`,
-    VERIFY_TOKEN: `${API_URL}/api/password/verify-token`,
-    RESET: `${API_URL}/api/password/reset-password`,
+    REQUEST_RESET: `${API_URL}/api/password/forgot`,
+    VERIFY_TOKEN: `${API_URL}/api/password/verify`,
+    RESET: `${API_URL}/api/password/reset`,
   },
   TRACK: `${API_URL}/api/track`,
 };

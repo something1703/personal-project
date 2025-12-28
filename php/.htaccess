@@ -1,0 +1,43 @@
+RewriteEngine On
+RewriteBase /survey_tracking/php/
+
+# Handle CORS preflight requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ options.php [L]
+
+# API Routes
+RewriteRule ^api/auth/login$ api/auth.php?action=login [L,QSA]
+RewriteRule ^api/auth/register$ api/auth.php?action=register [L,QSA]
+RewriteRule ^api/auth/logout$ api/auth.php?action=logout [L,QSA]
+RewriteRule ^api/auth/status$ api/auth.php?action=status [L,QSA]
+
+RewriteRule ^api/track$ api/track.php [L,QSA]
+
+RewriteRule ^api/dashboard/records$ api/dashboard.php?action=records [L,QSA]
+RewriteRule ^api/dashboard/stats$ api/dashboard.php?action=stats [L,QSA]
+RewriteRule ^api/dashboard/callback$ api/dashboard.php?action=callback [L,QSA]
+
+RewriteRule ^api/admin/users$ api/admin.php?action=users [L,QSA]
+RewriteRule ^api/admin/users/([0-9]+)$ api/admin.php?action=users&id=$1 [L,QSA]
+RewriteRule ^api/admin/audit-logs$ api/admin.php?action=audit-logs [L,QSA]
+
+RewriteRule ^api/contact$ api/contact.php [L,QSA]
+
+RewriteRule ^api/password/forgot$ api/password-reset.php?action=forgot [L,QSA]
+RewriteRule ^api/password/verify$ api/password-reset.php?action=verify [L,QSA]
+RewriteRule ^api/password/reset$ api/password-reset.php?action=reset [L,QSA]
+
+# Protect sensitive files
+<FilesMatch "\.(sql|log|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect config directory
+RedirectMatch 403 ^/survey_tracking/php/config/.*$
+
+# Protect includes directory  
+RedirectMatch 403 ^/survey_tracking/php/includes/.*$
+
+# Protect logs directory
+RedirectMatch 403 ^/survey_tracking/php/logs/.*$

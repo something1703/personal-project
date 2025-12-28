@@ -14,29 +14,32 @@ export default function Contact() {
     subject: '',
     message: ''
   });
+  const [formError, setFormError] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setFormError('');
+    setSubmitted(false);
+
     // Basic frontend validation
     if (!formData.name.trim()) {
-      alert('Please enter your name');
+      setFormError('Please enter your name');
       return;
     }
     if (!formData.email.trim()) {
-      alert('Please enter your email');
+      setFormError('Please enter your email');
       return;
     }
     if (!formData.subject) {
-      alert('Please select a subject');
+      setFormError('Please select a subject');
       return;
     }
     if (!formData.message.trim() || formData.message.trim().length < 10) {
-      alert('Please enter a message with at least 10 characters');
+      setFormError('Please enter a message with at least 10 characters');
       return;
     }
-    
+
     try {
       const response = await fetch(API_ENDPOINTS.CONTACT.SUBMIT, {
         method: 'POST',
@@ -55,12 +58,12 @@ export default function Contact() {
       } else {
         // Show specific error message from backend
         const errorMessage = data.message || data.errors?.[0]?.msg || 'Failed to send message. Please try again.';
-        alert(errorMessage);
+        setFormError(errorMessage);
         console.error('Contact form error:', data);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Network error. Please check your connection and try again.');
+      setFormError('Network error. Please check your connection and try again.');
     }
   };
 
@@ -74,7 +77,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero */}
         <section className="bg-blue-600 text-white py-12">
@@ -104,8 +107,14 @@ export default function Contact() {
                   <h2 className="text-3xl font-bold text-white mb-6">We are 24/7 available for your support</h2>
                 </div>
 
+                {formError && (
+                  <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg border border-red-200">
+                    {formError}
+                  </div>
+                )}
+
                 {submitted && (
-                  <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+                  <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-lg border border-green-200">
                     Thank you! Your message has been sent successfully.
                   </div>
                 )}
