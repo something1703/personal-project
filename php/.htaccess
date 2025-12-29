@@ -1,6 +1,17 @@
 RewriteEngine On
 RewriteBase /survey_tracking/php/
 
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Security: Disable directory listing
+Options -Indexes
+
 # Allow direct access to test files
 RewriteRule ^test_email\.php$ - [L]
 RewriteRule ^api/test-email\.php$ - [L]
