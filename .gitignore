@@ -1,2 +1,28 @@
 backend/nul
 backend/logs/*.log
+
+# PHP sensitive files
+php/config/config.php
+php/logs/*.log
+php/*.log
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Node modules
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

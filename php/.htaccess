@@ -1,6 +1,10 @@
 RewriteEngine On
 RewriteBase /survey_tracking/php/
 
+# Allow direct access to test files
+RewriteRule ^test_email\.php$ - [L]
+RewriteRule ^api/test-email\.php$ - [L]
+
 # Handle CORS preflight requests
 RewriteCond %{REQUEST_METHOD} OPTIONS
 RewriteRule ^(.*)$ options.php [L]

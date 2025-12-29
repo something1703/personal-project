@@ -1,5 +1,5 @@
 // API Configuration
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost/survey_tracking/php';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1/survey_tracking/php';
 
 // API endpoints
 export const API_ENDPOINTS = {

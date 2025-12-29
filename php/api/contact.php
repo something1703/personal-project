@@ -4,6 +4,7 @@ require_once '../config/config.php';
 require_once '../includes/cors.php';
 require_once '../includes/session.php';
 require_once '../includes/logger.php';
+require_once '../includes/email.php';
 
 setCorsHeaders();
 startSession();
@@ -42,6 +43,7 @@ if ($method === 'POST') {
     }
     
     try {
+        // Save to database
         $query = "INSERT INTO contact_submissions (name, email, subject, message, created_at)
                   VALUES (:name, :email, :subject, :message, NOW())";
         
@@ -52,16 +54,62 @@ if ($method === 'POST') {
         $stmt->bindParam(':message', $message);
         $stmt->execute();
         
+        // Send email notification
+        try {
+            $emailResult = sendContactFormEmail($name, $email, $subject, $message);
+        } catch (Exception $e) {
+            $emailResult = [
+                'success' => false,
+                'message' => 'Exception: ' . $e->getMessage()
+            ];
+        }
+        
+        // Debug: Always log the email result
+        logInfo('Contact form email attempt', [
+            'email_result' => $emailResult,
+            'company_email' => defined('COMPANY_EMAIL') ? COMPANY_EMAIL : SMTP_FROM_EMAIL,
+            'name' => $name,
+            'email' => $email
+        ]);
+        
+        if (!$emailResult['success']) {
+            // Log email failure with detailed error
+            logError('Contact form email failed', [
+                'error' => $emailResult['message'],
+                'name' => $name,
+                'email' => $email,
+                'smtp_host' => SMTP_HOST,
+                'smtp_port' => SMTP_PORT,
+                'smtp_username' => SMTP_USERNAME
+            ]);
+            
+            // In development, include error in response for debugging
+            // Remove this in production for security
+            $debugInfo = '';
+            if (defined('BASE_URL') && strpos(BASE_URL, 'localhost') !== false) {
+                $debugInfo = ' (Email error: ' . $emailResult['message'] . ')';
+            }
+        }
+        
         logInfo('Contact form submitted', [
             'name' => $name,
             'email' => $email,
-            'subject' => $subject
+            'subject' => $subject,
+            'email_sent' => $emailResult['success'],
+            'email_error' => $emailResult['success'] ? null : $emailResult['message']
         ]);
         
         http_response_code(201);
+        $responseMessage = 'Thank you for your message. We will get back to you soon!';
+        if (!$emailResult['success'] && isset($debugInfo)) {
+            $responseMessage .= $debugInfo;
+        }
+        
         echo json_encode([
             'status' => 'success',
-            'message' => 'Thank you for your message. We will get back to you soon!'
+            'message' => $responseMessage,
+            'email_sent' => $emailResult['success'],
+            'email_message' => $emailResult['message'] // Debug info
         ]);
         
     } catch (PDOException $e) {

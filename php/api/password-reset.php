@@ -4,6 +4,7 @@ require_once '../config/config.php';
 require_once '../includes/cors.php';
 require_once '../includes/session.php';
 require_once '../includes/logger.php';
+require_once '../includes/email.php';
 
 setCorsHeaders();
 startSession();
@@ -60,19 +61,45 @@ if ($method === 'POST' && strpos($_SERVER['REQUEST_URI'], '/forgot') !== false) 
         $stmt->bindParam(':expires_at', $expiresAt);
         $stmt->execute();
         
-        // In production, send email with reset link
-        // For now, just log it
+        // Send password reset email
         $resetLink = FRONTEND_URL . "/reset-password?token=$token";
-        logInfo('Password reset requested', [
-            'user_id' => $user['id'],
-            'email' => $email,
-            'reset_link' => $resetLink
-        ]);
+        
+        $emailSubject = "Password Reset Request - Survey Tracking System";
+        $emailBody = "
+        <html>
+        <body>
+            <h2>Password Reset Request</h2>
+            <p>Hello,</p>
+            <p>You have requested to reset your password for the Survey Tracking System.</p>
+            <p>Click the link below to reset your password:</p>
+            <p><a href=\"$resetLink\">Reset Password</a></p>
+            <p>This link will expire in 1 hour.</p>
+            <p>If you didn't request this, please ignore this email.</p>
+            <br>
+            <p>Best regards,<br>Survey Tracking System</p>
+        </body>
+        </html>
+        ";
+        
+        $emailResult = sendEmail($email, $emailSubject, $emailBody, $user['username']);
+        
+        if (!$emailResult['success']) {
+            logError('Failed to send password reset email', [
+                'user_id' => $user['id'],
+                'email' => $email,
+                'error' => $emailResult['message']
+            ]);
+            // Still return success to not reveal email existence
+        } else {
+            logInfo('Password reset email sent', [
+                'user_id' => $user['id'],
+                'email' => $email
+            ]);
+        }
         
         echo json_encode([
             'status' => 'success',
-            'message' => 'If the email exists, a password reset link has been sent.',
-            'reset_link' => $resetLink // Remove this in production
+            'message' => 'If the email exists, a password reset link has been sent.'
         ]);
         
     } catch (PDOException $e) {

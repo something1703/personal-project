@@ -31,13 +31,14 @@ define('RATE_LIMIT_WINDOW', 15 * 60); // 15 minutes
 define('RATE_LIMIT_MAX', 100);
 define('AUTH_RATE_LIMIT_MAX', 5);
 
-// Email configuration (for password reset)
+// Email configuration
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_PORT', 587);
 define('SMTP_USERNAME', 'your-email@gmail.com');
-define('SMTP_PASSWORD', 'your-app-password');
-define('SMTP_FROM_EMAIL', 'noreply@insightselite.com');
-define('SMTP_FROM_NAME', 'Insights Elite');
+define('SMTP_PASSWORD', 'your-app-password'); // Update with Gmail App Password
+define('SMTP_FROM_EMAIL', 'your-email@gmail.com');
+define('SMTP_FROM_NAME', 'Your Company Name');
+define('COMPANY_EMAIL', 'your-email@gmail.com');
 
 // Security
 define('PASSWORD_SALT_ROUNDS', 10);
