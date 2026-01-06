@@ -47,25 +47,23 @@ export default function ForgotPasswordPage() {
           {/* Logo */}
           <div className="mb-8 flex justify-center">
             <h1 className="text-4xl text-black  font-bold">
-              Insights <span className="text-blue-600">Elite</span>
+              Infinity <span className="text-blue-600">Research</span>
             </h1>
           </div>
 
           {/* Progress Steps */}
           <div className="mb-8 flex items-center justify-center gap-4">
             <div className="flex items-center gap-2">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
-              }`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                }`}>
                 {step > 1 ? '✓' : '1'}
               </div>
               <span className="text-sm text-black font-medium">Email</span>
             </div>
             <div className="w-16 h-0.5 bg-gray-300"></div>
             <div className="flex items-center gap-2">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
-              }`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                }`}>
                 2
               </div>
               <span className="text-sm text-black font-medium">Confirm</span>

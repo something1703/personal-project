@@ -6,7 +6,7 @@ export default function Services() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero */}
         <section className="bg-blue-600 text-white py-12">
@@ -20,7 +20,7 @@ export default function Services() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl font-bold text-blue-600 mb-6">Our Services</h2>
             <p className="text-gray-700 text-lg leading-relaxed mb-4">
-              Great research starts with the right partner. At <span className="text-blue-600 font-semibold">Insights Elite</span>, we combine expertise, innovation, and precision-driven data to deliver insights that matter. Our industry-trained professionals are committed to quality, ensure you get accurate, actionable, and intelligent insights that drive better data with <span className="text-blue-600 font-semibold">Insights Elite</span>, where research meets excellence.
+              Great research starts with the right partner. At <span className="text-blue-600 font-semibold">Infinity Research</span>, we combine expertise, innovation, and precision-driven data to deliver insights that matter. Our industry-trained professionals are committed to quality, ensure you get accurate, actionable, and intelligent insights that drive better data with <span className="text-blue-600 font-semibold">Infinity Research</span>, where research meets excellence.
             </p>
           </div>
         </section>
@@ -31,7 +31,7 @@ export default function Services() {
             <h2 className="text-3xl font-bold text-blue-600 mb-4">Programming/Hosting:</h2>
             <h3 className="text-xl font-semibold text-gray-800 mb-6">Precision-Driven Survey Programming for Seamless Research Execution</h3>
             <p className="text-gray-700 leading-relaxed mb-8">
-              At <span className="text-blue-600 font-semibold">Insights Elite</span>, we believe that exceptional research starts with flawless programming. Our highly skilled programming team specializes in designing and executing interactive, intuitive, and fully customized surveys that deliver seamless experiences for respondents and accurate, high-quality data for clients.
+              At <span className="text-blue-600 font-semibold">Infinity Research</span>, we believe that exceptional research starts with flawless programming. Our highly skilled programming team specializes in designing and executing interactive, intuitive, and fully customized surveys that deliver seamless experiences for respondents and accurate, high-quality data for clients.
             </p>
 
             {/* Advanced Solutions Section */}
@@ -169,7 +169,7 @@ export default function Services() {
         <section className="py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-blue-600 mb-8">Panel</h2>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
               <div className="relative h-64 rounded-lg overflow-hidden shadow-lg">
                 <Image
@@ -182,7 +182,7 @@ export default function Services() {
               <div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">Unparalleled Global Panel Reach for Exceptional Market Insights</h3>
                 <p className="text-gray-700 leading-relaxed">
-                  At <span className="text-blue-600 font-semibold">Insights Elite</span>, we take pride in offering one of the most comprehensive and diverse global panels in the research industry. Our highly engaged and pre-qualified members span across industries, demographics, and geographic regions, ensuring faster, more reliable, and deeply targeted data collection for every research study.
+                  At <span className="text-blue-600 font-semibold">Infinity Research</span>, we take pride in offering one of the most comprehensive and diverse global panels in the research industry. Our highly engaged and pre-qualified members span across industries, demographics, and geographic regions, ensuring faster, more reliable, and deeply targeted data collection for every research study.
                 </p>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function Services() {
               <div>
                 <h4 className="font-semibold text-gray-800 mb-3">Your Research, Powered by Insights Elite</h4>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  With our global reach, niche-targeting expertise, and rigorous quality assurance, <span className="text-blue-600 font-semibold">Insights Elite</span> is the partner of choice for companies looking to make data-backed decisions with confidence.
+                  With our global reach, niche-targeting expertise, and rigorous quality assurance, <span className="text-blue-600 font-semibold">Infinity Research</span> is the partner of choice for companies looking to make data-backed decisions with confidence.
                 </p>
               </div>
             </div>
@@ -230,7 +230,7 @@ export default function Services() {
 
               <div>
                 <h4 className="font-semibold text-gray-800 mb-3">Data Integrity & Quality Control at Our Core</h4>
-                <p className="text-gray-700 text-sm leading-relaxed mb-2">At <span className="text-blue-600 font-semibold">Insights Elite</span>, quality is not just a priority—it's the foundation of everything we do. Our panel quality control processes ensure you receive only the most accurate, reliable, and actionable data.</p>
+                <p className="text-gray-700 text-sm leading-relaxed mb-2">At <span className="text-blue-600 font-semibold">Infinity Research</span>, quality is not just a priority—it's the foundation of everything we do. Our panel quality control processes ensure you receive only the most accurate, reliable, and actionable data.</p>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-gray-700 text-sm">
                   <li className="flex items-start"><span className="text-blue-600 mr-2">✓</span>Behavioral Tracking & Engagement Scoring to optimize response accuracy</li>
                   <li className="flex items-start"><span className="text-blue-600 mr-2">✓</span>Fraud Detection with AI-Powered Machine Learning</li>
@@ -250,7 +250,7 @@ export default function Services() {
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold text-blue-600 mb-4">B2B</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  At <span className="text-blue-600 font-semibold">Insights Elite</span>, We specialize in high-quality consumer research, collecting data for thousands of ad-hoc B2C studies each year. Whether it's brand perception, product testing, must use, food delivery feedback, or gig economy insights, we provide a reliable, data-driven approach to understanding consumer behavior and product.
+                  At <span className="text-blue-600 font-semibold">Infinity Research</span>, We specialize in high-quality consumer research, collecting data for thousands of ad-hoc B2C studies each year. Whether it's brand perception, product testing, must use, food delivery feedback, or gig economy insights, we provide a reliable, data-driven approach to understanding consumer behavior and product.
                 </p>
               </div>
 
@@ -264,7 +264,7 @@ export default function Services() {
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold text-blue-600 mb-4">Healthcare</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
-                  With real-time response validation, rigorous quality control, and a global reach, <span className="text-blue-600 font-semibold">Insights Elite</span> is your trusted partner in understanding consumer behavior, tracking brand performance, and shaping future marketing strategies with unparalleled consistency and depth.
+                  With real-time response validation, rigorous quality control, and a global reach, <span className="text-blue-600 font-semibold">Infinity Research</span> is your trusted partner in understanding consumer behavior, tracking brand performance, and shaping future marketing strategies with unparalleled consistency and depth.
                 </p>
               </div>
             </div>
@@ -276,10 +276,10 @@ export default function Services() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-blue-600 mb-6">API</h2>
             <p className="text-gray-700 leading-relaxed mb-6">
-              At <span className="text-blue-600 font-semibold">Insights Elite</span>, we go beyond traditional sampling by offering seamless API integration to maximize efficiency, scalability, and respondent reach. While we specialize in delivering real-time sampling solutions that drive higher engagement and faster data collection. Our API solutions ensure that panelists are dynamically matched with relevant studies, enhancing higher feasibility, better targeting, and more diverse respondent pools across multiple industries.
+              At <span className="text-blue-600 font-semibold">Infinity Research</span>, we go beyond traditional sampling by offering seamless API integration to maximize efficiency, scalability, and respondent reach. While we specialize in delivering real-time sampling solutions that drive higher engagement and faster data collection. Our API solutions ensure that panelists are dynamically matched with relevant studies, enhancing higher feasibility, better targeting, and more diverse respondent pools across multiple industries.
             </p>
             <p className="text-gray-700 leading-relaxed mb-6">
-              By leveraging automation and intelligent routing, we connect your research with the right audience more effectively ensuring higher-quality data through automated API solutions, <span className="text-blue-600 font-semibold">Insights Elite</span> empowers businesses to conduct research with greater precision, broader reach, and seamless execution—driving real impact for brands, products, and services.
+              By leveraging automation and intelligent routing, we connect your research with the right audience more effectively ensuring higher-quality data through automated API solutions, <span className="text-blue-600 font-semibold">Infinity Research</span> empowers businesses to conduct research with greater precision, broader reach, and seamless execution—driving real impact for brands, products, and services.
             </p>
           </div>
         </section>
@@ -288,7 +288,7 @@ export default function Services() {
         <section className="py-12 bg-blue-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-lg mb-6">
-              At Insights Elite, we don't just manage projects, we drive research success with expert guidance, proactive problem-solving, and a relentless focus on quality. Partner with us for seamless execution, powerful insights, and research that delivers real impact.
+              At Infinity Research, we don't just manage projects, we drive research success with expert guidance, proactive problem-solving, and a relentless focus on quality. Partner with us for seamless execution, powerful insights, and research that delivers real impact.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="px-8 py-3 bg-white text-blue-600 rounded-md font-semibold hover:bg-gray-100 transition">
@@ -306,4 +306,3 @@ export default function Services() {
     </div>
   );
 }
-              

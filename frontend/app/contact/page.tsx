@@ -229,8 +229,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Email Us</h3>
-                <a href="mailto:contact@insightselite.com" className="text-blue-600 font-semibold hover:underline">
-                  contact@insightselite.com
+                <a href="mailto:contact@theinfinityresearch.com" className="text-blue-600 font-semibold hover:underline">
+                  contact@theinfinityresearch.com
                 </a>
               </div>
 

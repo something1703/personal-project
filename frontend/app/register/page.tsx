@@ -101,9 +101,9 @@ export default function RegisterPage() {
           <div className="mb-8">
             <Link href="/">
               <h1 className="text-3xl font-bold">
-                <span className="text-gray-900">Insights</span>
+                <span className="text-gray-900">Infinity</span>
                 <br />
-                <span className="text-blue-600">Elite</span>
+                <span className="text-blue-600">Research</span>
               </h1>
             </Link>
           </div>
@@ -111,27 +111,24 @@ export default function RegisterPage() {
           {/* Progress Steps */}
           <div className="flex items-center justify-between mb-8 bg-gray-100 rounded-lg p-4">
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+                }`}>
                 {step > 1 ? '✓' : '1'}
               </div>
               <span className="ml-2 text-xs font-medium text-gray-700">You</span>
             </div>
             <div className={`flex-1 h-0.5 mx-2 ${step >= 2 ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+                }`}>
                 {step > 2 ? '✓' : '2'}
               </div>
               <span className="ml-2 text-xs font-medium text-gray-700">Account</span>
             </div>
             <div className={`flex-1 h-0.5 mx-2 ${step >= 3 ? 'bg-blue-600' : 'bg-gray-300'}`}></div>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
-              }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
+                }`}>
                 3
               </div>
               <span className="ml-2 text-xs font-medium text-gray-700">Confirm</span>
@@ -139,7 +136,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Form Title */}
-          <h2 className="text-xl font-semibold text-gray-800 mb-6">Join Insightselite</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-6">Join Infinityresearch</h2>
 
           {error && (
             <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
@@ -296,7 +293,7 @@ export default function RegisterPage() {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-blue-600 mb-2">Hi {formData.firstName}!</h3>
-                <p className="text-gray-600">Thank you for becoming a Insights Elite User!</p>
+                <p className="text-gray-600">Thank you for becoming a Infinity Research User!</p>
               </div>
               <p className="text-sm text-gray-500">Redirecting to dashboard...</p>
             </div>
@@ -338,7 +335,7 @@ export default function RegisterPage() {
             No matter where you are,<br />
             you can take part in surveys
           </p>
-          
+
           {/* Bottom Navigation */}
           <div className="absolute bottom-12 left-0 right-0 flex justify-center gap-12 text-sm">
             <Link href="/about" className="hover:text-blue-400 transition">About</Link>

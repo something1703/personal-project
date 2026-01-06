@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-gray-50 to-gray-100 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,10 +15,10 @@ export default function Home() {
             {/* Left Content */}
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                Welcome To <span className="text-blue-600">Insights Elite</span>
+                Welcome To <span className="text-blue-600">Infinity Research</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 mb-8">
-                Insights Elite providing quality in the research industry
+                Infinity Research providing quality in the research industry
               </p>
               <Link
                 href="/login"
@@ -27,7 +27,7 @@ export default function Home() {
                 Get Started Now
               </Link>
             </div>
-            
+
             {/* Right Image */}
             <div className="hidden lg:block">
               <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
@@ -53,7 +53,7 @@ export default function Home() {
           <h3 className="text-2xl md:text-3xl font-bold text-blue-600 mb-12">
             They Trust Us. Get Samples Worldwide!
           </h3>
-          
+
           {/* Country Flags Grid */}
           <div className="grid grid-cols-4 md:grid-cols-8 gap-8 mb-8">
             {[
@@ -100,7 +100,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-2xl font-bold text-blue-600 mb-3">Survey Programming</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Insights Elite provides for round the clock project monitoring and the programmed survey keeps collecting the requisite data from the relevant respondents during the course. The responses could be collected in a matrix or over a likert scale of points or multiple check box or unique radio button responses through applicable text box or text or audio- video means.
+                    Infinity Research provides for round the clock project monitoring and the programmed survey keeps collecting the requisite data from the relevant respondents during the course. The responses could be collected in a matrix or over a likert scale of points or multiple check box or unique radio button responses through applicable text box or text or audio- video means.
                   </p>
                 </div>
               </div>

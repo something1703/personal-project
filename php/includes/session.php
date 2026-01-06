@@ -48,14 +48,27 @@ function requireRole($role) {
 }
 
 function getUserIP() {
+    $ip = '0.0.0.0';
+    
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        // Handle multiple IPs (comma separated)
+        $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        $ip = trim($ipList[0]);
     } elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {
-        return $_SERVER['HTTP_X_REAL_IP'];
+        $ip = $_SERVER['HTTP_X_REAL_IP'];
     } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
-        return $_SERVER['REMOTE_ADDR'];
+        $ip = $_SERVER['REMOTE_ADDR'];
     }
-    return '0.0.0.0';
+    
+    // Anonymize IPv6: keep first 4 blocks (e.g., 2405:201:6812:f018)
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        $parts = explode(':', $ip);
+        if (count($parts) > 4) {
+            return implode(':', array_slice($parts, 0, 4));
+        }
+    }
+    
+    return $ip;
 }
 
 function trackSession($db) {

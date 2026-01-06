@@ -82,9 +82,9 @@ export default function LoginPage() {
           <div className="mb-8">
             <Link href="/">
               <h1 className="text-3xl font-bold">
-                <span className="text-gray-900">Insights</span>
+                <span className="text-gray-900">Infinity</span>
                 <br />
-                <span className="text-blue-600">Elite</span>
+                <span className="text-blue-600">Research</span>
               </h1>
             </Link>
           </div>
@@ -117,7 +117,7 @@ export default function LoginPage() {
           </div>
 
           {/* Form Title */}
-          <h2 className="text-xl font-semibold text-gray-800 mb-6">Login to Insightselite</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-6">Login to Infinityresearch</h2>
 
           {error && (
             <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
@@ -233,7 +233,7 @@ export default function LoginPage() {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-blue-600 mb-2">Hi {formData.username || 'User'}!</h3>
-                <p className="text-gray-600">Thank you for logging in to Insights Elite!</p>
+                <p className="text-gray-600">Thank you for logging in to Infinity Research!</p>
               </div>
               <p className="text-sm text-gray-500">Redirecting to dashboard...</p>
             </div>

@@ -45,13 +45,16 @@ if ($method === 'POST') {
     try {
         // Save to database
         $query = "INSERT INTO contact_submissions (name, email, subject, message, created_at)
-                  VALUES (:name, :email, :subject, :message, NOW())";
+                  VALUES (:name, :email, :subject, :message, :created_at)";
+        
+        $current_timestamp = date('Y-m-d H:i:s');
         
         $stmt = $db->prepare($query);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':subject', $subject);
         $stmt->bindParam(':message', $message);
+        $stmt->bindParam(':created_at', $current_timestamp);
         $stmt->execute();
         
         // Send email notification

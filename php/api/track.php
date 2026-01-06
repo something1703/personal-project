@@ -46,13 +46,16 @@ if ($method === 'GET') {
     try {
         // Insert into database
         $query = "INSERT INTO tracking (uid, pid, status, ip, created_at) 
-                  VALUES (:uid, :pid, :status, :ip, NOW())";
+                  VALUES (:uid, :pid, :status, :ip, :created_at)";
+        
+        $current_timestamp = date('Y-m-d H:i:s');
         
         $stmt = $db->prepare($query);
         $stmt->bindParam(':uid', $uid);
         $stmt->bindParam(':pid', $pid);
         $stmt->bindParam(':status', $action);
         $stmt->bindParam(':ip', $ip);
+        $stmt->bindParam(':created_at', $current_timestamp);
         $stmt->execute();
         
         logInfo('Tracking recorded', [
