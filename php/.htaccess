@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /survey_tracking/php/
+RewriteBase /php/
 
 # Security headers
 <IfModule mod_headers.c>
@@ -49,10 +49,10 @@ RewriteRule ^api/password/reset$ api/password-reset.php?action=reset [L,QSA]
 </FilesMatch>
 
 # Protect config directory
-RedirectMatch 403 ^/survey_tracking/php/config/.*$
+RedirectMatch 403 ^/php/config/.*$
 
-# Protect includes directory  
-RedirectMatch 403 ^/survey_tracking/php/includes/.*$
+# Protect includes directory
+RedirectMatch 403 ^/php/includes/.*$
 
 # Protect logs directory
-RedirectMatch 403 ^/survey_tracking/php/logs/.*$
+RedirectMatch 403 ^/php/logs/.*$

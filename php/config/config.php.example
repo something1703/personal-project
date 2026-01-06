@@ -1,12 +1,12 @@
 <?php
 // General configuration
-define('BASE_URL', 'http://localhost/survey_tracking/php');
-define('FRONTEND_URL', 'http://localhost:3000');
+define('BASE_URL', 'https://theinfinityresearch.com/php');
+define('FRONTEND_URL', 'https://theinfinityresearch.com');
 
 // Session configuration
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', 1);
-ini_set('session.cookie_secure', 0); // Set to 1 in production with HTTPS
+ini_set('session.cookie_secure', 1); // HTTPS enabled
 ini_set('session.cookie_samesite', 'Lax'); // Changed from Strict to Lax for Next.js compatibility
 
 // Session timeout (24 hours)
@@ -20,10 +20,7 @@ ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
 
 // CORS settings
 $allowed_origins = [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://127.0.0.1:3000',
-    'http://127.0.0.1:3001'
+    'https://theinfinityresearch.com'
 ];
 
 // Rate limiting
@@ -31,18 +28,18 @@ define('RATE_LIMIT_WINDOW', 15 * 60); // 15 minutes
 define('RATE_LIMIT_MAX', 100);
 define('AUTH_RATE_LIMIT_MAX', 5);
 
-// Email configuration
+// Email configuration - Using Gmail SMTP (works with Hostinger)
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_PORT', 587);
-define('SMTP_USERNAME', 'your-email@gmail.com');
-define('SMTP_PASSWORD', 'your-app-password'); // Update with Gmail App Password
-define('SMTP_FROM_EMAIL', 'your-email@gmail.com');
-define('SMTP_FROM_NAME', 'Your Company Name');
-define('COMPANY_EMAIL', 'your-email@gmail.com');
+define('SMTP_USERNAME', 'your-email@gmail.com'); // Replace with your Gmail
+define('SMTP_PASSWORD', 'your-app-password'); // Replace with Gmail App Password
+define('SMTP_FROM_EMAIL', 'noreply@theinfinityresearch.com');
+define('SMTP_FROM_NAME', 'The Infinity Research');
+define('COMPANY_EMAIL', 'contact@theinfinityresearch.com');
 
 // Security
 define('PASSWORD_SALT_ROUNDS', 10);
-define('SESSION_SECRET', 'your-secret-key-change-in-production');
+define('SESSION_SECRET', 'your-unique-secret-key-change-this-in-production');
 
 // Pagination
 define('DEFAULT_PAGE_LIMIT', 20);
