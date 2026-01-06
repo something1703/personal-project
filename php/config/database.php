@@ -1,10 +1,10 @@
 <?php
-// Database configuration
+// Production Database Configuration for Hostinger
 class Database {
     private $host = "localhost";
-    private $db_name = "survey_tracking";
-    private $username = "root";
-    private $password = "";
+    private $db_name = "u832093887_surveytracking";
+    private $username = "u832093887_surveytracking";
+    private $password = "Surveytracking@123";
     private $conn;
 
     // Get database connection

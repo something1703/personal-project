@@ -1,8 +1,8 @@
 -- Survey Traffic Tracking System Database (MySQL)
 
 -- Create database
-CREATE DATABASE IF NOT EXISTS survey_tracking;
-USE survey_tracking;
+-- CREATE DATABASE IF NOT EXISTS survey_tracking;
+-- USE survey_tracking;
 
 -- Create admin users table
 CREATE TABLE IF NOT EXISTS admin_users (
