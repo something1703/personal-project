@@ -74,16 +74,16 @@ export default function Header() {
             <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
               Contact
             </Link>
-            
+
             {isAuthenticated ? (
               <>
                 {userRole === 'admin' && (
-                  <Link
+                  <a
                     href="/admin/dashboard"
                     className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition font-medium"
                   >
                     Admin Dashboard
-                  </Link>
+                  </a>
                 )}
                 <div className="flex items-center gap-3">
                   <span className="text-gray-700 font-medium">Hi, {username}</span>
@@ -143,13 +143,13 @@ export default function Header() {
             <Link href="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
               Contact
             </Link>
-            
+
             {isAuthenticated ? (
               <>
                 {userRole === 'admin' && (
-                  <Link href="/admin/dashboard" className="block px-4 py-2 bg-green-600 text-white rounded text-center">
+                  <a href="/admin/dashboard" className="block px-4 py-2 bg-green-600 text-white rounded text-center">
                     Admin Dashboard
-                  </Link>
+                  </a>
                 )}
                 <div className="px-4 py-2 text-gray-700 font-medium">
                   Hi, {username}
