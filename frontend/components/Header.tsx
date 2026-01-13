@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { API_ENDPOINTS } from '@/lib/config';
@@ -56,8 +57,17 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-blue-600">Survey Tracking</span>
+          <Link href="/" className="flex items-center gap-3">
+            <div className="relative w-10 h-10">
+              <Image
+                src="/infinity logo.png"
+                alt="Infinity Research"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-xl font-bold text-blue-600">Infinity Research</span>
           </Link>
 
           {/* Desktop Navigation */}

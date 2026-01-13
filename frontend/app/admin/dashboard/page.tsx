@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { API_ENDPOINTS } from '@/lib/config';
 
 interface TrackingRecord {
@@ -26,7 +27,7 @@ export default function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(10);
-  
+
   // Filters
   const [projectId, setProjectId] = useState('');
   const [status, setStatus] = useState('');
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
         credentials: 'include',
       });
       const data = await response.json();
-      
+
       if (data.status === 'success') {
         setStats({
           total: parseInt(data.data.total) || 0,
@@ -72,7 +73,7 @@ export default function AdminDashboard() {
         credentials: 'include',
       });
       const data = await response.json();
-      
+
       if (data.status === 'success') {
         setRecords(data.data);
         setTotalPages(data.pagination.totalPages);
@@ -87,7 +88,7 @@ export default function AdminDashboard() {
   const downloadCSV = () => {
     // Create CSV header
     const headers = ['S No', 'Reference ID', 'Project ID', 'Status', 'IP Address', 'Time', 'Date'];
-    
+
     // Create CSV rows
     const rows = records.map((record, index) => [
       (currentPage - 1) * limit + index + 1,
@@ -150,8 +151,19 @@ export default function AdminDashboard() {
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Survey Tracking Dashboard</h1>
-          <button 
+          <div className="flex items-center gap-3">
+            <div className="relative w-10 h-10">
+              <Image
+                src="/infinity logo.png"
+                alt="Infinity Research"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900">Infinity Research Dashboard</h1>
+          </div>
+          <button
             onClick={() => window.location.href = '/'}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
@@ -236,7 +248,7 @@ export default function AdminDashboard() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 text-black focus:ring-blue-500"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Status

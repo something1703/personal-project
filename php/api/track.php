@@ -74,18 +74,40 @@ if ($method === 'GET') {
         }
         
         // Return HTML response showing status
+        $statusLabels = [
+            'Complete' => 'COMPLETED',
+            'Terminate' => 'TERMINATED',
+            'Quotafull' => 'QUOTA FULL'
+        ];
+        
         $statusColors = [
             'Complete' => '#10b981',
             'Terminate' => '#ef4444',
             'Quotafull' => '#f59e0b'
         ];
         
+        $statusBadgeColors = [
+            'Complete' => '#10b981',
+            'Terminate' => '#ef4444',
+            'Quotafull' => '#f59e0b'
+        ];
+        
+        $statusLabel = $statusLabels[$action] ?? 'UNKNOWN';
         $statusColor = $statusColors[$action] ?? '#6b7280';
+        $badgeColor = $statusBadgeColors[$action] ?? '#6b7280';
         $icon = $action === 'Complete' ? '✓' : ($action === 'Terminate' ? '✕' : '⚠');
-        $message = $action === 'Complete' ? 'Thank you for completing the survey!' : 
-                   ($action === 'Terminate' ? 'Survey terminated.' : 'Survey quota has been reached.');
+        
+        $heading = $action === 'Complete' ? 'Thank You!' : 
+                   ($action === 'Terminate' ? 'Survey Terminated' : 'Quota Reached');
+        
+        $message = $action === 'Complete' ? 'Your survey response has been successfully recorded.' : 
+                   ($action === 'Terminate' ? 'Your survey response has been terminated.' : 'The survey quota has been reached.');
         
         $timestamp = date('Y-m-d H:i:s');
+        $year = date('Y');
+        
+        // Set content type to HTML
+        header('Content-Type: text/html; charset=UTF-8');
         
         echo <<<HTML
 <!DOCTYPE html>
@@ -93,7 +115,8 @@ if ($method === 'GET') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Status - $action</title>
+    <title>Survey Status - $statusLabel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -101,8 +124,8 @@ if ($method === 'GET') {
             box-sizing: border-box;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -111,88 +134,132 @@ if ($method === 'GET') {
         }
         .container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 60px 40px;
-            text-align: center;
-            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            max-width: 600px;
             width: 100%;
+            overflow: hidden;
         }
-        .logo {
+        .header {
+            padding: 50px 40px 30px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .logo-container {
             width: 120px;
             height: 120px;
-            margin: 0 auto 30px;
-            background: #f3f4f6;
-            border-radius: 50%;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
-            color: $statusColor;
         }
-        .status {
-            font-size: 36px;
-            font-weight: bold;
-            color: $statusColor;
+        .logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .badge {
+            display: inline-block;
+            background: $badgeColor;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             margin-bottom: 20px;
         }
+        .heading {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
         .message {
-            font-size: 18px;
+            font-size: 16px;
             color: #6b7280;
-            margin-bottom: 30px;
             line-height: 1.6;
         }
-        .details {
-            background: #f9fafb;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            text-align: left;
+        .details-section {
+            padding: 30px 40px;
+        }
+        .details-heading {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 20px;
+            text-align: center;
         }
         .detail-row {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 0;
+            border-bottom: 1px solid #f3f4f6;
         }
         .detail-row:last-child {
             border-bottom: none;
         }
         .detail-label {
-            font-weight: 600;
-            color: #374151;
+            font-weight: 400;
+            color: #6b7280;
+            font-size: 15px;
         }
         .detail-value {
+            color: #1f2937;
+            font-weight: 500;
+            font-size: 15px;
+            font-family: 'Courier New', monospace;
+        }
+        .footer {
+            background: #f9fafb;
+            padding: 20px 40px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+        .footer-text {
+            font-size: 14px;
             color: #6b7280;
+        }
+        .company-name {
+            font-weight: 600;
+            color: #1f2937;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            $icon
-        </div>
-        <div class="status">$action</div>
-        <div class="message">
-            $message
-        </div>
-        <div class="details">
-            <div class="detail-row">
-                <span class="detail-label">Reference ID:</span>
-                <span class="detail-value">$uid</span>
+        <div class="header">
+            <div class="logo-container">
+                <img src="/infinity%20logo.png" alt="Infinity Research Logo" class="logo-img">
             </div>
+            <div class="badge">$statusLabel</div>
+            <h1 class="heading">$heading</h1>
+            <p class="message">$message</p>
+        </div>
+        
+        <div class="details-section">
+            <h2 class="details-heading">Response Details</h2>
             <div class="detail-row">
-                <span class="detail-label">Project ID:</span>
+                <span class="detail-label">Project ID</span>
                 <span class="detail-value">$pid</span>
             </div>
             <div class="detail-row">
-                <span class="detail-label">Status:</span>
-                <span class="detail-value" style="color: $statusColor; font-weight: 600;">$action</span>
+                <span class="detail-label">Respondent ID</span>
+                <span class="detail-value">$uid</span>
             </div>
             <div class="detail-row">
-                <span class="detail-label">Timestamp:</span>
-                <span class="detail-value">$timestamp</span>
+                <span class="detail-label">Location</span>
+                <span class="detail-value">Global - Region A</span>
             </div>
+            <div class="detail-row">
+                <span class="detail-label">IP Address</span>
+                <span class="detail-value">$ip</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p class="footer-text">© $year <span class="company-name">Infinity Research</span>. All rights reserved.</p>
         </div>
     </div>
 </body>

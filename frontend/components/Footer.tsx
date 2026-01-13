@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -7,7 +8,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Survey Tracking</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/infinity logo.png"
+                  alt="Infinity Research"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-xl font-bold">Infinity Research</h3>
+            </div>
             <p className="text-gray-400 text-sm">
               Professional survey traffic tracking system for panel network partners.
             </p>
@@ -51,7 +62,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Survey Tracking. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Infinity Research. All rights reserved.</p>
         </div>
       </div>
     </footer>
