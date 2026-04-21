@@ -216,8 +216,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Call Us</h3>
-                <a href="tel:+919599661202" className="text-blue-600 font-semibold hover:underline">
-                  +91-9599661202
+                <a href="tel:+919560245332" className="text-blue-600 font-semibold hover:underline">
+                  +91-9560245332
                 </a>
               </div>
 

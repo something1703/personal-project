@@ -55,7 +55,7 @@ export default function Home() {
           </h3>
 
           {/* Country Flags Grid */}
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-8 mb-8">
+          <div className="grid grid-cols-4 sm:grid-cols-7 md:grid-cols-7 gap-6 mb-8 justify-items-center">
             {[
               { name: 'China', img: 'china.png' },
               { name: 'India', img: 'india.png' },
@@ -65,9 +65,15 @@ export default function Home() {
               { name: 'Greece', img: 'greece.png' },
               { name: 'Cuba', img: 'cuba.png' },
               { name: 'Egypt', img: 'egypt.png' },
+              { name: 'Columbia', img: 'columbia.png' },
+              { name: 'Costa Rica', img: 'costarica.png' },
+              { name: 'Czech Republic', img: 'czechrepublic.png' },
+              { name: 'Dominican Rep.', img: 'dominicanrepublic.png' },
+              { name: 'Ecuador', img: 'equador.png' },
+              { name: 'Finland', img: 'finland.png' },
             ].map((country) => (
               <div key={country.name} className="text-center">
-                <div className="relative w-20 h-14 mx-auto mb-2 rounded shadow-md overflow-hidden">
+                <div className="relative w-16 h-12 mx-auto mb-2 rounded shadow-md overflow-hidden">
                   <Image
                     src={`/${country.img}`}
                     alt={country.name}

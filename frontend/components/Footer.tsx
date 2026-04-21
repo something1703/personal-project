@@ -39,7 +39,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>Email: contact@theinfinityresearch.com</li>
-              <li>Phone: +91-9599661202</li>
+              <li>Phone: +91-9560245332</li>
             </ul>
           </div>
 
