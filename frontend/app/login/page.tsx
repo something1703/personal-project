@@ -53,7 +53,11 @@ export default function LoginPage() {
       if (data.status === 'success') {
         setStep(3); // Confirmation step
         setTimeout(() => {
-          router.push('/admin/dashboard');
+          if (data.user?.role === 'admin') {
+            router.push('/admin/dashboard');
+          } else {
+            router.push('/panel');
+          }
         }, 2000);
       } else {
         setError(data.message || 'Login failed');

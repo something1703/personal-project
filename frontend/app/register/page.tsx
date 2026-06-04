@@ -72,7 +72,7 @@ export default function RegisterPage() {
       if (data.status === 'success') {
         setStep(3); // Confirmation step
         setTimeout(() => {
-          router.push('/admin/dashboard');
+          router.push('/panel');
         }, 2000);
       } else {
         setError(data.message || 'Registration failed');

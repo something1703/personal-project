@@ -11,10 +11,23 @@ export default function Header() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [userRole, setUserRole] = useState('');
+  const [resourcesOpen, setResourcesOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     checkAuthStatus();
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('#client-resources-menu')) {
+        setResourcesOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const checkAuthStatus = async () => {
@@ -52,6 +65,11 @@ export default function Header() {
     }
   };
 
+  const pdfResources = [
+    { name: 'ESOMAR 37 - Infinity Research', file: '/ESOMAR 37_Infinity Research.pdf' },
+    { name: 'Panel Book - Infinity Research', file: '/Panel Book_Infinity Research.pdf' },
+  ];
+
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,6 +99,49 @@ export default function Header() {
             <Link href="/about" className="text-gray-700 hover:text-blue-600 font-medium">
               About
             </Link>
+
+            {/* Client Resources Dropdown */}
+            <div className="relative" id="client-resources-menu">
+              <button
+                onClick={() => setResourcesOpen(!resourcesOpen)}
+                className="flex items-center gap-1 text-gray-700 hover:text-blue-600 font-medium"
+              >
+                Client Resources
+                <svg
+                  className={`w-4 h-4 transition-transform duration-200 ${resourcesOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {resourcesOpen && (
+                <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-md shadow-lg border border-gray-100 py-1 z-50">
+                  <p className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider border-b border-gray-100">
+                    Download Resources
+                  </p>
+                  {pdfResources.map((res) => (
+                    <a
+                      key={res.file}
+                      href={res.file}
+                      download
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    >
+                      <svg className="w-5 h-5 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z"/>
+                      </svg>
+                      <span>{res.name}</span>
+                      <svg className="w-4 h-4 ml-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
               Contact
             </Link>
@@ -94,6 +155,14 @@ export default function Header() {
                   >
                     Admin Dashboard
                   </a>
+                )}
+                {userRole === 'user' && (
+                  <Link
+                    href="/panel"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition font-medium"
+                  >
+                    Show Panel
+                  </Link>
                 )}
                 <div className="flex items-center gap-3">
                   <span className="text-gray-700 font-medium">Hi, {username}</span>
@@ -150,6 +219,25 @@ export default function Header() {
             <Link href="/about" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
               About
             </Link>
+
+            {/* Mobile Client Resources */}
+            <div className="border-t border-b border-gray-100 py-2">
+              <p className="px-4 py-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Client Resources</p>
+              {pdfResources.map((res) => (
+                <a
+                  key={res.file}
+                  href={res.file}
+                  download
+                  className="flex items-center gap-2 px-6 py-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                >
+                  <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z"/>
+                  </svg>
+                  {res.name}
+                </a>
+              ))}
+            </div>
+
             <Link href="/contact" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
               Contact
             </Link>
@@ -160,6 +248,11 @@ export default function Header() {
                   <a href="/admin/dashboard" className="block px-4 py-2 bg-green-600 text-white rounded text-center">
                     Admin Dashboard
                   </a>
+                )}
+                {userRole === 'user' && (
+                  <Link href="/panel" className="block px-4 py-2 bg-blue-600 text-white rounded text-center">
+                    Show Panel
+                  </Link>
                 )}
                 <div className="px-4 py-2 text-gray-700 font-medium">
                   Hi, {username}
